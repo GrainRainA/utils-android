@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--主题色-->
+    <color name="colorPrimary">#6CBDFF</color>
+    <color name="colorPrimaryDark">#2AA5FF</color>
+    <color name="colorAccent">#2AA5FF</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorLightBlack">#92000000</color>
+    <color name="colorTransparent">#00ffffff</color>
+    <color name="colorBlue">#6CBDFF</color>
+    <color name="colorBlueTransparent">#AB6CBDFF</color>
+    <color name="colorGray">#dac9c9c9</color>
+    <color name="colorGrayTransparent">#68C9C9C9</color>
+    <color name="colorLightGray">#94A0A0A0</color>
+    <color name="colorDarkGray">#DA696969</color>
+    <color name="colorRed">#DAFF0000</color>
+    <color name="colorLightRed">#A1FF0000</color>
+    <color name="colorGreen">#DA31FF29</color>
+    <color name="colorLightGreen">#31FF29</color>
+    <color name="colorDarkGreen">#DA7BFF79</color>
+    <color name="colorYellow">#E2FFEB3B</color>
+
+    <color name="test">#AB3D0C09</color>
+</resources>
