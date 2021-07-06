@@ -58,6 +58,11 @@ public class MQTTManager {
         return null;
     }
 
+    /**
+     * 连接MQTT
+     * @param mHost 地址
+     * @param interdace 信息回调接口
+     */
     public static void connect(String mHost, MessageInterdace interdace) {
         try {
             if (client == null) {
