@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                MQTTManager.publish("test", "GrainRain " + GetTime.getCurrentTime());
+//                MQTTManager.publish("test", "GrainRain " + GetTime.getCurrentTime());
             }
         },0, 1000);
     }
