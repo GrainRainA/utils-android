@@ -1,5 +1,6 @@
 package com.grain.utils.view;
 
+import android.app.Activity;
 import android.os.PowerManager;
 import android.view.WindowManager;
 
@@ -16,10 +17,10 @@ public class ScreenBrightness {
     /**
      * 保持屏幕常亮
      */
-    public static void brightness() {
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    public static void brightness(Activity activity) {
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         //此方法需要当前View可见
-        getActivity().getWindow().getDecorView().setKeepScreenOn(true);
+        activity.getWindow().getDecorView().setKeepScreenOn(true);
     }
 }

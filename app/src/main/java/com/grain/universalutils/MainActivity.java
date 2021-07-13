@@ -18,19 +18,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MQTTManager.connect("", new MQTTManager.MessageInterdace() {
-            @Override
-            public void messageArrived(String topic, byte[] bytes) {
-                L.e(new String(bytes));
-            }
-        });
-
-        MQTTManager.subscribe("test");
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-//                MQTTManager.publish("test", "GrainRain " + GetTime.getCurrentTime());
-            }
-        },0, 1000);
+//        MQTTManager.connect("", new MQTTManager.MessageInterdace() {
+//            @Override
+//            public void messageArrived(String topic, byte[] bytes) {
+//                L.e(new String(bytes));
+//            }
+//        });
+//
+//        MQTTManager.subscribe("test");
+//        new Timer().scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+////                MQTTManager.publish("test", "GrainRain " + GetTime.getCurrentTime());
+//            }
+//        },0, 1000);
     }
 }
