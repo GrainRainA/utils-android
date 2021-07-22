@@ -16,6 +16,7 @@ public class ScreenBrightness {
 
     /**
      * 保持屏幕常亮
+     * @param activity 当前活动需要可见
      */
     public static void brightness(Activity activity) {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

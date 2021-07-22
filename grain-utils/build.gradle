@@ -32,10 +32,10 @@ dependencies {
     api 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
 
     //fastjson
-    implementation 'com.alibaba:fastjson:1.1.71.android'
+    api 'com.alibaba:fastjson:1.1.71.android'
 
     //okgo
     api 'com.lzy.net:okgo:3.0.4'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.0.0'
 }
