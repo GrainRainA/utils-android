@@ -38,4 +38,7 @@ dependencies {
     api 'com.lzy.net:okgo:3.0.4'
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //通用弹窗 XPopup
+    api 'com.github.li-xiaojun:XPopup:2.5.4'
 }

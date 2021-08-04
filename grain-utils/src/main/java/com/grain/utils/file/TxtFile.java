@@ -2,13 +2,19 @@ package com.grain.utils.file;
 
 import android.util.Log;
 
+import com.grain.utils.InitUtilsModule;
 import com.grain.utils.hint.L;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 
@@ -23,7 +29,7 @@ public class TxtFile {
         //生成文件夹之后，再生成文件，不然会出错
         CraetFile.makeFilePath(filePath, fileName);
 
-        String strFilePath = filePath+fileName;
+        String strFilePath = filePath + fileName;
         // 每次写入时，都换行写
         String strContent = strcontent + "\r\n";
         try {
@@ -44,6 +50,7 @@ public class TxtFile {
 
     /**
      * 使用BufferedWriter进行文本内容的追加
+     *
      * @param file
      * @param content
      */
@@ -59,7 +66,7 @@ public class TxtFile {
             e.printStackTrace();
         } finally {
             try {
-                if(out != null){
+                if (out != null) {
                     out.close();
                 }
             } catch (IOException e) {
@@ -70,10 +77,11 @@ public class TxtFile {
 
     /**
      * 使用FileWriter进行文本内容的追加
+     *
      * @param file
      * @param content
      */
-    public static void addTxtToFileWrite(File file, String content){
+    public static void addTxtToFileWrite(File file, String content) {
         FileWriter writer = null;
         try {
             //FileWriter(file, true),第二个参数为true是追加内容，false是覆盖
@@ -84,12 +92,32 @@ public class TxtFile {
             e.printStackTrace();
         } finally {
             try {
-                if(writer != null){
+                if (writer != null) {
                     writer.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String read(String path) {
+        try {
+            File urlFile = new File(path);
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(urlFile), "UTF-8");
+            BufferedReader br = new BufferedReader(isr);
+            String mimeTypeLine = null;
+            String str = "";
+
+            while ((mimeTypeLine = br.readLine()) != null) {
+                str = str + mimeTypeLine;
+            }
+
+            return str;
+        } catch (Exception e) {
+            L.e(e);
+        }
+
+        return "";
     }
 }

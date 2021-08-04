@@ -31,11 +31,17 @@ public class L {
 
     public static void e(Object... msg) {
         String string = "";
-        for (int i = 0; i < msg.length; i++) {
-            if(!objectToString(msg[i]).equals("")) {
-                string += objectToString(msg[i]) + " ";
+
+        if(msg != null && msg.length != 0) {
+            for (int i = 0; i < msg.length; i++) {
+                if(!objectToString(msg[i]).equals("")) {
+                    string += objectToString(msg[i]) + " ";
+                }
             }
+        } else {
+            string = "null";
         }
+
         e(string);
     }
 

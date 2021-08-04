@@ -23,13 +23,14 @@ public class FileUtils {
 
     /**
      * 获取路径下的所有文件名
+     *
      * @param path
      * @return
      */
     public static List<String> getFileAllName(String path) {
         File file = new File(path);
         File[] files = file.listFiles();
-        if(files == null) {
+        if (files == null) {
             return null;
         }
 
@@ -43,6 +44,7 @@ public class FileUtils {
 
     /**
      * 文件下载
+     *
      * @param url
      * @param path
      * @param fileName
@@ -55,37 +57,38 @@ public class FileUtils {
                     @Override
                     public void onStart(Request<File, ? extends Request> request) {
                         super.onStart(request);
-                        if(callback != null) callback.onStart(request);
+                        if (callback != null) callback.onStart(request);
                     }
 
                     @Override
                     public void downloadProgress(Progress progress) {
                         super.downloadProgress(progress);
                         // 进度 progress.fraction
-                        if(callback != null) callback.downloadProgress(progress);
+                        if (callback != null) callback.downloadProgress(progress);
                     }
 
                     @Override
                     public void onSuccess(Response<File> response) {
-                        if(callback != null) callback.onSuccess(response);
+                        if (callback != null) callback.onSuccess(response);
                     }
 
                     @Override
                     public void onError(Response<File> response) {
                         super.onError(response);
-                        if(callback != null) callback.onError(response);
+                        if (callback != null) callback.onError(response);
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        if(callback != null) callback.onFinish();
+                        if (callback != null) callback.onFinish();
                     }
                 });
     }
 
     /**
      * 文件上传
+     *
      * @param url
      * @param path
      * @param callback
@@ -99,13 +102,44 @@ public class FileUtils {
         post.execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                if(callback != null) callback.onSuccess(response);
+                if (callback != null) callback.onSuccess(response);
             }
 
             @Override
             public void onError(Response<String> response) {
-                if(callback != null) callback.onError(response);
+                if (callback != null) callback.onError(response);
             }
         });
+    }
+
+    /**
+     * 删除文件
+     * @param file
+     */
+    public static void deleteFile(File file) {
+        deleteFile(file, false);
+    }
+
+    /**
+     * 删除文件
+     * @param file
+     * @param deleteFolder 是否删除文件夹
+     */
+    public static void deleteFile(File file, boolean deleteFolder) {
+        if (file == null) return;
+
+        L.e(file.getAbsolutePath());
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                File f = files[i];
+                deleteFile(f, false);
+            }
+
+            //删除文件夹
+            if (deleteFolder) file.delete();
+        } else if (file.exists()) {
+            file.delete();
+        }
     }
 }
