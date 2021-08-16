@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.grain.utils.InitUtilsModule;
@@ -11,7 +12,6 @@ import com.grain.utils.InitUtilsModule;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.grain.utils.InitUtilsModule.getActivity;
 
 /**
  * @anthor GrainRain
@@ -20,10 +20,6 @@ import static com.grain.utils.InitUtilsModule.getActivity;
  */
 public class FullScreen {
 
-    /**
-     * 隐藏状态栏和标题栏
-     * @param activity
-     */
     public static void setHideAllBar(AppCompatActivity activity) {
         setHideTitleBar(activity);
         setHideStatusBar(activity);
@@ -31,7 +27,19 @@ public class FullScreen {
     }
 
     /**
+     * 隐藏状态栏和标题栏
+     *
+     * @param activity
+     */
+    public static void setHideAllBar(Activity activity) {
+        setHideTitleBar(activity);
+        setHideStatusBar(activity);
+        hideNavKey(activity);
+    }
+
+    /**
      * 隐藏标题栏
+     *
      * @param activity
      */
     public static void setHideTitleBar(AppCompatActivity activity) {
@@ -42,7 +50,18 @@ public class FullScreen {
     }
 
     /**
+     * 隐藏标题栏
+     * 必须在setContentView之前调用
+     *
+     * @param activity
+     */
+    public static void setHideTitleBar(Activity activity) {
+        activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    }
+
+    /**
      * 隐藏状态栏
+     *
      * @param activity
      */
     public static void setHideStatusBar(Activity activity) {
@@ -53,6 +72,7 @@ public class FullScreen {
 
     /**
      * 隐藏底部按键
+     *
      * @param activity
      */
     public static void hideNavKey(Activity activity) {

@@ -1,11 +1,8 @@
 package com.grain.utils;
 
+import android.app.Activity;
 import android.content.Context;
-
 import com.grain.utils.utils.SharedPreferenceUtils;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 
 /**
  * @anthor GrainRain
@@ -14,16 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class InitUtilsModule {
 
-    private static AppCompatActivity activity;
+    private static Activity activity;
     private static Context context;
 
-    public static void init(AppCompatActivity mActivity) {
+    public static void init(Activity mActivity) {
         activity = mActivity;
         context = activity.getApplicationContext();
         new SharedPreferenceUtils();
     }
 
-    public static AppCompatActivity getActivity() {
+    public static Activity getActivity() {
         return activity;
     }
 

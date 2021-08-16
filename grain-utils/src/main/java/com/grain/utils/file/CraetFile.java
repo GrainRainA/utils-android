@@ -6,7 +6,7 @@ import java.io.File;
 
 /**
  * @anthor GrainRain
- * @funcation
+ * @funcation 创建文件、文件夹工具类
  * @date 2021/3/17
  */
 public class CraetFile {

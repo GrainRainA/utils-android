@@ -22,11 +22,29 @@ import java.util.List;
 public class FileUtils {
 
     /**
+     * 获取路径下的所有文件
+     * @param path
+     * @return
+     */
+    public static List<File> getAllFile(String path) {
+        List<String> fileNameList = FileUtils.getFileAllName(path);
+        if (fileNameList == null) return null;
+        List<File> fileList = new ArrayList<>();
+
+        for (int i = 0; i < fileNameList.size(); i++) {
+            fileList.add(new File(fileNameList.get(i)));
+        }
+
+        return fileList;
+    }
+
+    /**
      * 获取路径下的所有文件名
      *
      * @param path
      * @return
      */
+    // TODO: 2021/8/16 应添加获取的路径是文件夹的情况
     public static List<String> getFileAllName(String path) {
         File file = new File(path);
         File[] files = file.listFiles();

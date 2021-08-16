@@ -40,5 +40,5 @@ dependencies {
     api 'androidx.recyclerview:recyclerview:1.0.0'
 
     //通用弹窗 XPopup
-    api 'com.github.li-xiaojun:XPopup:2.5.4'
+    api 'com.github.li-xiaojun:XPopup:2.5.8'
 }

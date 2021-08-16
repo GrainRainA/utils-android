@@ -32,7 +32,7 @@ public class StringUtils {
      * isBlank(&quot; a&quot;) = false;
      * isBlank(&quot;a b&quot;) = false;
      * </pre>
-     * 
+     *
      * @param str
      * @return if string is null or its size is 0 or it is made by space, return true, else return false.
      */
@@ -43,13 +43,13 @@ public class StringUtils {
     /**
      * 判断字符串是否为空或长度为0
      * is null or its length is 0
-     * 
+     *
      * <pre>
      * isEmpty(null) = true;
      * isEmpty(&quot;&quot;) = true;
      * isEmpty(&quot;  &quot;) = false;
      * </pre>
-     * 
+     *
      * @param str
      * @return if string is null or its size is 0, return true, else return false.
      */
@@ -59,6 +59,7 @@ public class StringUtils {
 
     /**
      * 比较两个字符串是否相同
+     *
      * @param actual
      * @param expected
      * @return
@@ -70,13 +71,13 @@ public class StringUtils {
 
     /**
      * get length of CharSequence
-     * 
+     *
      * <pre>
      * length(null) = 0;
      * length(\"\") = 0;
      * length(\"abc\") = 3;
      * </pre>
-     * 
+     *
      * @param str
      * @return if str is null or empty, return 0, else return {@link CharSequence#length()}.
      */
@@ -86,18 +87,18 @@ public class StringUtils {
 
     /**
      * null Object to empty string
-     * 
+     *
      * <pre>
      * nullStrToEmpty(null) = &quot;&quot;;
      * nullStrToEmpty(&quot;&quot;) = &quot;&quot;;
      * nullStrToEmpty(&quot;aa&quot;) = &quot;aa&quot;;
      * </pre>
-     * 
+     *
      * @param str
      * @return
      */
     public static String nullStrToEmpty(Object str) {
-        return (str == null ? "" : (str instanceof String ? (String)str : str.toString()));
+        return (str == null ? "" : (str instanceof String ? (String) str : str.toString()));
     }
 
     /**
@@ -113,18 +114,21 @@ public class StringUtils {
 
     /**
      * 分割字符串
+     *
      * @param str
      * @param startStr
      * @param endStr
      * @return
      */
     public static String split(String str, String startStr, String endStr) {
-        if(StringUtils.isBlank(str) || !str.contains(startStr) || !str.contains(endStr)) return null;
+        if (StringUtils.isBlank(str) || !str.contains(startStr) || !str.contains(endStr))
+            return null;
         return str.substring(str.indexOf(startStr) + startStr.length(), str.indexOf(endStr));
     }
 
     /**
      * 分割字符串
+     *
      * @param str
      * @param startStr
      * @param endStr
@@ -132,8 +136,9 @@ public class StringUtils {
      * @return
      */
     public static String[] split(String str, String startStr, String endStr, boolean isArray) {
-        if(StringUtils.isBlank(str) || !str.contains(startStr) || !str.contains(endStr)) return null;
-        if(!isArray) return (new String[] {StringUtils.split(str, startStr, endStr)});
+        if (StringUtils.isBlank(str) || !str.contains(startStr) || !str.contains(endStr))
+            return null;
+        if (!isArray) return (new String[]{StringUtils.split(str, startStr, endStr)});
 
         String[] list = StringUtils.split(str, endStr);
         String[] resultList = new String[list.length];
@@ -148,6 +153,7 @@ public class StringUtils {
 
     /**
      * 字符串是否包含
+     *
      * @param str
      * @param regex
      * @return
@@ -157,7 +163,32 @@ public class StringUtils {
     }
 
     /**
+     * 提取字符串里的数字
+     *
+     * @param str
+     * @return
+     */
+    public static int numExtract(String str) {
+        return numExtract(str, 0);
+    }
+
+    /**
+     * 提取字符串里的数字
+     * @param str
+     * @param defaultValue 默认返回值
+     * @return
+     */
+    public static int numExtract(String str, int defaultValue) {
+        String regEx = "[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        int num = Convert.convertToInt(m.replaceAll("").trim(), defaultValue);
+        return num;
+    }
+
+    /**
      * 删除指定字符串
+     *
      * @param str
      * @param regex
      * @return
@@ -168,7 +199,7 @@ public class StringUtils {
 
     /**
      * capitalize first letter
-     * 
+     *
      * <pre>
      * capitalizeFirstLetter(null)     =   null;
      * capitalizeFirstLetter("")       =   "";
@@ -177,7 +208,7 @@ public class StringUtils {
      * capitalizeFirstLetter("ab")     =   "Ab"
      * capitalizeFirstLetter("Abc")    =   "Abc"
      * </pre>
-     * 
+     *
      * @param str
      * @return
      */
@@ -193,14 +224,14 @@ public class StringUtils {
 
     /**
      * encoded in utf-8
-     * 
+     *
      * <pre>
      * utf8Encode(null)        =   null
      * utf8Encode("")          =   "";
      * utf8Encode("aa")        =   "aa";
      * utf8Encode("啊啊啊啊")   = "%E5%95%8A%E5%95%8A%E5%95%8A%E5%95%8A";
      * </pre>
-     * 
+     *
      * @param str
      * @return
      * @throws UnsupportedEncodingException if an error occurs
@@ -218,7 +249,7 @@ public class StringUtils {
 
     /**
      * encoded in utf-8, if exception, return defultReturn
-     * 
+     *
      * @param str
      * @param defultReturn
      * @return
@@ -236,7 +267,7 @@ public class StringUtils {
 
     /**
      * get innerHtml from href
-     * 
+     *
      * <pre>
      * getHrefInnerHtml(null)                                  = ""
      * getHrefInnerHtml("")                                    = ""
@@ -251,13 +282,13 @@ public class StringUtils {
      * getHrefInnerHtml("jack&lt;a&gt;innerHtml&lt;/a&gt;&lt;/a&gt;")                  = "innerHtml";
      * getHrefInnerHtml("&lt;a&gt;innerHtml1&lt;/a&gt;&lt;a&gt;innerHtml2&lt;/a&gt;")        = "innerHtml2";
      * </pre>
-     * 
+     *
      * @param href
      * @return <ul>
-     *         <li>if href is null, return ""</li>
-     *         <li>if not match regx, return source</li>
-     *         <li>return the last string that match regx</li>
-     *         </ul>
+     * <li>if href is null, return ""</li>
+     * <li>if not match regx, return source</li>
+     * <li>return the last string that match regx</li>
+     * </ul>
      */
     public static String getHrefInnerHtml(String href) {
         if (isEmpty(href)) {
@@ -273,9 +304,9 @@ public class StringUtils {
         return href;
     }
 
-/**
+    /**
      * process special char in html
-     * 
+     *
      * <pre>
      * htmlEscapeCharsToString(null) = null;
      * htmlEscapeCharsToString("") = "";
@@ -286,7 +317,7 @@ public class StringUtils {
      * htmlEscapeCharsToString("mp3&quot;mp4") = "mp3\"mp4";
      * htmlEscapeCharsToString("mp3&lt;&gt;&amp;&quot;mp4") = "mp3\<\>&\"mp4";
      * </pre>
-     * 
+     *
      * @param source
      * @return
      */
@@ -297,14 +328,14 @@ public class StringUtils {
 
     /**
      * transform half width char to full width char
-     * 
+     *
      * <pre>
      * fullWidthToHalfWidth(null) = null;
      * fullWidthToHalfWidth("") = "";
      * fullWidthToHalfWidth(new String(new char[] {12288})) = " ";
      * fullWidthToHalfWidth("！＂＃＄％＆) = "!\"#$%&";
      * </pre>
-     * 
+     *
      * @param s
      * @return
      */
@@ -320,7 +351,7 @@ public class StringUtils {
                 // } else if (source[i] == 12290) {
                 // source[i] = '.';
             } else if (source[i] >= 65281 && source[i] <= 65374) {
-                source[i] = (char)(source[i] - 65248);
+                source[i] = (char) (source[i] - 65248);
             } else {
                 source[i] = source[i];
             }
@@ -330,14 +361,14 @@ public class StringUtils {
 
     /**
      * transform full width char to half width char
-     * 
+     *
      * <pre>
      * halfWidthToFullWidth(null) = null;
      * halfWidthToFullWidth("") = "";
      * halfWidthToFullWidth(" ") = new String(new char[] {12288});
      * halfWidthToFullWidth("!\"#$%&) = "！＂＃＄％＆";
      * </pre>
-     * 
+     *
      * @param s
      * @return
      */
@@ -349,11 +380,11 @@ public class StringUtils {
         char[] source = s.toCharArray();
         for (int i = 0; i < source.length; i++) {
             if (source[i] == ' ') {
-                source[i] = (char)12288;
+                source[i] = (char) 12288;
                 // } else if (source[i] == '.') {
                 // source[i] = (char)12290;
             } else if (source[i] >= 33 && source[i] <= 126) {
-                source[i] = (char)(source[i] + 65248);
+                source[i] = (char) (source[i] + 65248);
             } else {
                 source[i] = source[i];
             }
