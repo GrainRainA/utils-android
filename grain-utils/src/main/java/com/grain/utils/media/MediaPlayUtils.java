@@ -36,7 +36,7 @@ public class MediaPlayUtils {
         String path = Environment.getExternalStorageDirectory() + "/Dragonfish/ZOOM_0115_Trim.mp4";
         try {
 //            AssetManager am = InitUtilsModule.getActivity().getResources().getAssets();
-//            AssetFileDescriptor afd = am.openFd("test.mp4");
+//            AssetFileDescriptor afd = am.openFd("showCustomizeDialog.mp4");
             mediaPlayer.setDataSource(path);
 
             /* 准备 */

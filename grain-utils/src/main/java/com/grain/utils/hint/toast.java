@@ -23,7 +23,6 @@ public class toast {
 
     public static void show(final Activity activity, final Object object, final int duration) {
 
-        L.e(object.toString());
         if(activity != null) {
             activity.runOnUiThread(new Runnable() {
                 @Override
