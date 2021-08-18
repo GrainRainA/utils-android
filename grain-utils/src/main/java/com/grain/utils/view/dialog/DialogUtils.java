@@ -1,8 +1,10 @@
 package com.grain.utils.view.dialog;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.Toast;
 
+import com.grain.utils.R;
 import com.grain.utils.hint.L;
 import com.grain.utils.hint.toast;
 import com.lxj.xpopup.XPopup;
@@ -127,15 +129,19 @@ public class DialogUtils {
 
 
     public BasePopupView showNormalDialog(Activity activity, String title, String content) {
-        return showNormalDialog(activity, title, content, null, null, true, true);
+        return showNormalDialog(activity, title, content, null);
+    }
+
+    public BasePopupView showNormalDialog(Activity activity, String title, String content, int bindLayoutId) {
+        return showNormalDialog(activity, title, content, null, null, true, true, bindLayoutId);
     }
 
     public BasePopupView showNormalDialog(Activity activity, String title, String content, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener) {
-        return showNormalDialog(activity, title, content, onConfirmListener, null, true, true);
+        return showNormalDialog(activity, title, content, onConfirmListener, null);
     }
 
     public BasePopupView showNormalDialog(Activity activity, String title, String content, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener, final com.grain.utils.Interfaces.OnCancelListener onCancelListener) {
-        return showNormalDialog(activity, title, content, onConfirmListener, onCancelListener, true, true);
+        return showNormalDialog(activity, title, content, onConfirmListener, onCancelListener, true, true, 0);
     }
 
     /**
@@ -148,13 +154,15 @@ public class DialogUtils {
      * @param onCancelListener        取消按钮监听器
      * @param isDismissOnTouchOutside 外部是否可触摸
      * @param isDismissOnBackPressed  按下返回键是否关闭弹窗
+     * @param bindLayoutId            layoutId 要求布局中必须包含的TextView以及id有：tv_title，tv_content，tv_cancel，tv_confirm
      * @return
      */
     public BasePopupView showNormalDialog(Activity activity, String title, String content,
                                           final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
                                           final com.grain.utils.Interfaces.OnCancelListener onCancelListener,
                                           boolean isDismissOnTouchOutside,
-                                          boolean isDismissOnBackPressed) {
+                                          boolean isDismissOnBackPressed,
+                                          int bindLayoutId) {
 
         BasePopupView normalDialog = new XPopup.Builder(activity)
                 .isDestroyOnDismiss(true)
@@ -174,9 +182,8 @@ public class DialogUtils {
                             @Override
                             public void onCancel() {
                                 if (onCancelListener != null) onCancelListener.onCancel();
-//                                normalDialog.dismiss();
                             }
-                        }, (onCancelListener == null))
+                        }, (onCancelListener == null), bindLayoutId)
                 .show();
         return normalDialog;
     }
@@ -185,20 +192,49 @@ public class DialogUtils {
      * 自定义弹窗
      *
      * @param activity
-     * @param basePopupView
+     * @param
      * @return
      */
-    public BasePopupView showCustomizeDialog(final Activity activity, BasePopupView basePopupView) {
-        BasePopupView view = new XPopup.Builder(activity)
+    public BasePopupView showCustomizeDialog(final Activity activity, String title, String content,
+                                             final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
+                                             final com.grain.utils.Interfaces.OnCancelListener onCancelListener,
+                                             boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed,
+                                             View view) {
+
+        CustomizePopupView customizePopupView = new CustomizePopupView(activity, R.layout._xpopup_customize_popup_view);
+        customizePopupView.isHideCancel = true;
+        customizePopupView.addCustomizeView(view);
+        customizePopupView.setTitleContent("sgsfg", null, null);
+
+        customizePopupView.setListener(new OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                L.e("sad");
+            }
+        }, new OnCancelListener() {
+            @Override
+            public void onCancel() {
+                L.e("cvxcxv");
+
+            }
+        });
+
+        BasePopupView popupView = new XPopup.Builder(activity)
                 .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
                 .enableDrag(true)
                 .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
 //              .isThreeDrag(true) //是否开启三阶拖拽，如果设置enableDrag(false)则无效
-                .asCustom(basePopupView)
+                .asCustom(customizePopupView)
                 .show();
 
-        return view;
+        return popupView;
     }
+
+
+
+
+
+
 
     public void showProgressDialog(final Activity activity) {
 

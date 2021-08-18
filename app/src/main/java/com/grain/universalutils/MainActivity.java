@@ -5,21 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.grain.utils.InitUtilsModule;
-import com.grain.utils.Interfaces.OnCancelListener;
-import com.grain.utils.Interfaces.OnConfirmListener;
-import com.grain.utils.Interfaces.OnInputConfirmListener;
-import com.grain.utils.Interfaces.OnSelectListener;
 import com.grain.utils.hint.L;
-import com.grain.utils.hint.toast;
 import com.grain.utils.utils.Permission.ApplyPermission;
 import com.grain.utils.view.FullScreen;
-import com.grain.utils.view.control.PopupViewTest;
+import com.grain.utils.view.dialog.CustomizePopupView;
 import com.grain.utils.view.dialog.DialogUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnCancelListener;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,17 +30,23 @@ public class MainActivity extends AppCompatActivity {
         InitUtilsModule.init(this);
         FullScreen.setHideAllBar(this);
 
+        final LinearLayout linear_layout = findViewById(R.id.linear_layout);
+
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                FileUtils.deleteFile(new File(Environment.getExternalStorageDirectory() + "/showCustomizeDialog"), true);
                 test();
+
+//                linear_layout.addView(new TestLayout(MainActivity.this));
             }
         });
     }
 
     private void test() {
-        new DialogUtils().showProgressDialog(this);
+//        new DialogUtils().showCustomizeDialog(this, new PopupViewTest(this, R.layout.popup_view_layout));
+//        new DialogUtils().showNormalDialog(this, "ti", "sfsd", R.layout.popup_view_layout);
+        new DialogUtils().showCustomizeDialog(this, new TestLayout(MainActivity.this));
     }
 
 
