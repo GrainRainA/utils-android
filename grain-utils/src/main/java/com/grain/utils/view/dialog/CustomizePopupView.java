@@ -19,8 +19,9 @@ import com.lxj.xpopup.util.XPopupUtils;
 import androidx.annotation.NonNull;
 
 /**
- * Description: 确定和取消的对话框
- * Create by dance, at 2018/12/16
+ * @anthor GrainRain
+ * @funcation 自定义确定和取消的对话框
+ * @date 2021/8/19
  */
 public class CustomizePopupView extends CenterPopupView implements View.OnClickListener {
     OnCancelListener cancelListener;

@@ -2,10 +2,8 @@ package com.grain.utils.view.dialog;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.grain.utils.R;
-import com.grain.utils.hint.L;
 import com.grain.utils.hint.toast;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
@@ -188,55 +186,134 @@ public class DialogUtils {
         return normalDialog;
     }
 
+    public BasePopupView showCustomizeDialog(final Activity activity, String title, View view) {
+        return showCustomizeDialog(activity, title, null, view);
+    }
+
+    public BasePopupView showCustomizeDialog(final Activity activity, String title, boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed, View view) {
+        return showCustomizeDialog(activity, title, null, isDismissOnTouchOutside, isDismissOnBackPressed, view);
+    }
+
+    public BasePopupView showCustomizeDialog(final Activity activity, String title, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener, View view) {
+        return showCustomizeDialog(activity, title, onConfirmListener, true, true, view);
+    }
+
+    public BasePopupView showCustomizeDialog(final Activity activity, String title, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener, boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed, View view) {
+        return showCustomizeDialog(activity, title, null, onConfirmListener, null, isDismissOnTouchOutside, isDismissOnBackPressed, view);
+    }
+
+    public BasePopupView showCustomizeDialog(final Activity activity, String title, String content,
+                                             final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
+                                             final com.grain.utils.Interfaces.OnCancelListener onCancelListener,
+                                             boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed,
+                                             View view) {
+        return showCustomizeDialog(activity, title, null, onConfirmListener, null, isDismissOnTouchOutside, isDismissOnBackPressed, null, view);
+    }
+
     /**
      * 自定义弹窗
      *
      * @param activity
-     * @param
+     * @param title                   标题
+     * @param content                 内容
+     * @param onConfirmListener       确认按钮监听器
+     * @param onCancelListener        取消按钮监听器
+     * @param isDismissOnTouchOutside 外部是否可触摸
+     * @param isDismissOnBackPressed  按下返回键是否关闭弹窗
+     * @param view                    自定义view
      * @return
      */
     public BasePopupView showCustomizeDialog(final Activity activity, String title, String content,
                                              final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
                                              final com.grain.utils.Interfaces.OnCancelListener onCancelListener,
                                              boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed,
-                                             View view) {
+                                             CustomizePopupView customizePopupView, View view) {
 
-        CustomizePopupView customizePopupView = new CustomizePopupView(activity, R.layout._xpopup_customize_popup_view);
-        customizePopupView.isHideCancel = true;
-        customizePopupView.addCustomizeView(view);
-        customizePopupView.setTitleContent("sgsfg", null, null);
-
-        customizePopupView.setListener(new OnConfirmListener() {
-            @Override
-            public void onConfirm() {
-                L.e("sad");
-            }
-        }, new OnCancelListener() {
-            @Override
-            public void onCancel() {
-                L.e("cvxcxv");
-
-            }
-        });
+        if (customizePopupView == null) customizePopupView = creatCustomizePopupView(activity, title, content, onConfirmListener, onCancelListener, view);
 
         BasePopupView popupView = new XPopup.Builder(activity)
                 .moveUpToKeyboard(false) //如果不加这个，评论弹窗会移动到软键盘上面
                 .enableDrag(true)
                 .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
 //              .isThreeDrag(true) //是否开启三阶拖拽，如果设置enableDrag(false)则无效
+                .dismissOnTouchOutside(isDismissOnTouchOutside)   //外部是否可触摸
+                .dismissOnBackPressed(isDismissOnBackPressed)        //按下返回键是否关闭弹窗
                 .asCustom(customizePopupView)
                 .show();
 
         return popupView;
     }
 
+    /**
+     * 创建自定义视图
+     * @param activity
+     * @param title
+     * @param content
+     * @param onConfirmListener
+     * @param onCancelListener
+     * @param view
+     * @return
+     */
+    public CustomizePopupView creatCustomizePopupView(final Activity activity, String title, String content,
+                                                      final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
+                                                      final com.grain.utils.Interfaces.OnCancelListener onCancelListener, View view) {
+        CustomizePopupView customizePopupView = new CustomizePopupView(activity, R.layout._xpopup_customize_popup_view);
+        customizePopupView.isHideCancel = (onCancelListener == null);
+        customizePopupView.addCustomizeView(view);
+        customizePopupView.setTitleContent(title, content, null);
+
+        customizePopupView.setListener(new OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                if (onConfirmListener != null) onConfirmListener.onCancel();
+            }
+        }, new OnCancelListener() {
+            @Override
+            public void onCancel() {
+                if (onCancelListener != null) onCancelListener.onCancel();
+            }
+        });
+
+        return customizePopupView;
+    }
+
+    public ProgressDialog showProgressDialog(final Activity activity, String title, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener) {
+        return showProgressDialog(activity, title, onConfirmListener, null);
+    }
+
+    public ProgressDialog showProgressDialog(final Activity activity, String title, String content, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener) {
+        return showProgressDialog(activity, title, content, onConfirmListener, null, true, true);
+    }
+
+    public ProgressDialog showProgressDialog(final Activity activity, String title, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener, boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed) {
+        return showProgressDialog(activity, title, null, onConfirmListener, null, isDismissOnTouchOutside, isDismissOnBackPressed);
+    }
+
+    public ProgressDialog showProgressDialog(final Activity activity, String title, final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener, final com.grain.utils.Interfaces.OnCancelListener onCancelListener) {
+        return showProgressDialog(activity, title, null, onConfirmListener, onCancelListener, true, true);
+    }
+
+    /**
+     * 进度条弹窗
+     *
+     * @param activity
+     * @param title                   标题
+     * @param content                 内容
+     * @param onConfirmListener       确认按钮监听器
+     * @param onCancelListener        取消按钮监听器
+     * @param isDismissOnTouchOutside 外部是否可触摸
+     * @param isDismissOnBackPressed  按下返回键是否关闭弹窗
+     * @return
+     */
+    public ProgressDialog showProgressDialog(final Activity activity, String title, String content,
+                                             final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
+                                             final com.grain.utils.Interfaces.OnCancelListener onCancelListener,
+                                             boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed) {
+        return new ProgressDialog(activity, title, content, onConfirmListener, onCancelListener, isDismissOnTouchOutside, isDismissOnBackPressed);
+    }
 
 
-
-
-
-
-    public void showProgressDialog(final Activity activity) {
+    public void showProgressDialog(final Activity activity, int i) {
 
         LoadingPopupView loadingPopup = (LoadingPopupView) new XPopup.Builder(activity)
                 .dismissOnBackPressed(false)
