@@ -14,56 +14,79 @@ import java.util.Arrays;
  */
 public class L {
 
-    public static final String TAG = "----------";
-    public static boolean debug = true;
+    private static final String TAG = "----------";
+    private static boolean debug = true;
 
-    public static void v(Object msg) {
-        if (debug) Log.v(TAG, msg.toString());
+    private static final String TOP_CORNER     = "┌";
+    private static final String MIDDLE_CORNER  = "├";
+    private static final String LEFT_BORDER    = "│ ";
+    private static final String BOTTOM_CORNER  = "└";
+    private static final String SIDE_DIVIDER   = "────────────────────────────────────────────────────────";
+
+    public static void v(Object... msg) {
+        if (debug) Log.e(TAG, objectToString(msg));
     }
 
-    public static void d(Object msg) {
-        if (debug) Log.d(TAG, msg.toString());
+    public static void d(Object... msg) {
+        if (debug) Log.e(TAG, objectToString(msg));
     }
 
-    public static void e(Exception e) {
-        e("Exception: " + e.getMessage());
-    }
-
+    /**
+     * 打印
+     * @param msg
+     */
     public static void e(Object... msg) {
+        if (debug) Log.e(TAG, objectToString(msg));
+    }
+
+
+    public static void special(Object... msg) {
+        if (debug) {
+            L.e("   \n" +
+                    TOP_CORNER + SIDE_DIVIDER + "\n" +
+                    LEFT_BORDER + objectToString(msg) + "\n" +
+                    BOTTOM_CORNER + SIDE_DIVIDER);
+        }
+    }
+
+
+
+    /**
+     * 泛型列表转字符
+     * @param msg
+     * @return
+     */
+    private static String objectToString(Object... msg) {
         String string = "";
 
-        if(msg != null && msg.length != 0) {
+        if (msg != null && msg.length != 0) {
             for (int i = 0; i < msg.length; i++) {
-                if(!objectToString(msg[i]).equals("")) {
+                if (!StringUtils.isEmpty(objectToString(msg[i]))) {
                     string += objectToString(msg[i]) + " ";
+                } else {
+                    string += "null ";
                 }
             }
         } else {
             string = "null";
         }
 
-        e(string);
+        return string;
     }
 
-    public static void e(Object msg) {
-        e(objectToString(msg));
-    }
-
-    public static void e(String msg) {
-        Log.e(TAG, (StringUtils.isEmpty(msg) ? "null" : msg));
-    }
-
-    public static String objectToString(Object msg) {
+    /**
+     * 泛型转字符
+     *
+     * @param msg
+     * @return
+     */
+    private static String objectToString(Object msg) {
         try {
             if (debug) {
                 if (msg instanceof int[]) {
                     return (Arrays.toString((int[]) msg));
                 } else if (msg instanceof byte[]) {
-
                     return (ByteUtils.byteArrayToHexString((byte[]) msg));
-
-//                    byte[] data = (byte[]) msg;
-//                    e(Arrays.toString(ByteUtils.byteToInt(data)));
                 } else if (msg instanceof Exception) {
                     return "Exception: " + ((Exception) msg).getMessage();
                 } else {

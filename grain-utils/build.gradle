@@ -41,4 +41,7 @@ dependencies {
 
     //通用弹窗 XPopup
     api 'com.github.li-xiaojun:XPopup:2.5.8'
+
+    //BaseRecyclerViewAdapterHelper
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 }
