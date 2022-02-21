@@ -5,6 +5,15 @@
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Project/Android/JZI/Common/UniversalUtils/app/src/main/res/drawable/rounded_rectangle_frame_blue_bg.xml" value="0.291" />
+        <entry key="..\:/Project/Android/JZI/Common/UniversalUtils/app/src/main/res/layout/activity_main.xml" value="0.16767983789260385" />
+        <entry key="..\:/Project/Android/JZI/Common/UniversalUtils/grain-utils/src/main/res/drawable/rounded_rectangle_frame_blue_bg.xml" value="0.192" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -22,7 +31,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

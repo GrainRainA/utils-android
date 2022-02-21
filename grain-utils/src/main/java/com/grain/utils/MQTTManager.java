@@ -75,7 +75,6 @@ public class MQTTManager {
             connectOptions.setPassword(passWord.toCharArray());
             client.setCallback(mqttCallback);
             client.connect(connectOptions);
-
             if(interdace != null) {
                 messageInterdace = interdace;
             }
@@ -109,6 +108,20 @@ public class MQTTManager {
         try {
             client.unsubscribe(topic);
         } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* 切换MQTT地址 */
+    public static void switchHost(String newHost) {
+        try {
+            client.disconnect();
+            client = null;
+
+            connect(newHost, messageInterdace);
+            restoreSubscribe();
+        } catch (MqttException e) {
+            L.e(e);
             e.printStackTrace();
         }
     }
@@ -198,7 +211,7 @@ public class MQTTManager {
     };
 
     //重连MQTT后重新订阅
-    private static void restoreSubscribe() {
+    public static void restoreSubscribe() {
         try {
             for (String key : subscribeTopicMap.keySet()) {
                 subscribe(key);

@@ -1,6 +1,7 @@
 package com.grain.utils.view.dialog;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.TextView;
 
 import com.lxj.xpopup.core.BasePopupView;
@@ -16,16 +17,16 @@ public class ProgressDialog {
     private BasePopupView basePopupView;
     private CustomizePopupView customizePopupView;
 
-    public ProgressDialog(final Activity activity, String title, String content,
+    public ProgressDialog(final Context context, String title, String content,
                           final com.grain.utils.Interfaces.OnConfirmListener onConfirmListener,
                           final com.grain.utils.Interfaces.OnCancelListener onCancelListener,
                           boolean isDismissOnTouchOutside, boolean isDismissOnBackPressed) {
 
-        progressView = new ProgressView(activity);
+        progressView = new ProgressView(context);
         setContent(content);
 
-        customizePopupView = new DialogUtils().creatCustomizePopupView(activity, title, null, null, null, progressView);
-        basePopupView = new DialogUtils().showCustomizeDialog(activity, title, content, onConfirmListener, onCancelListener, isDismissOnTouchOutside, isDismissOnBackPressed, customizePopupView, progressView);
+        customizePopupView = new DialogUtils().creatCustomizePopupView(context, title, null, null, null, progressView);
+        basePopupView = new DialogUtils().showCustomizeDialog(context, title, content, onConfirmListener, onCancelListener, isDismissOnTouchOutside, isDismissOnBackPressed, customizePopupView, progressView);
     }
 
     /**

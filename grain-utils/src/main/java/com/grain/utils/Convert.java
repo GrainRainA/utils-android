@@ -1,5 +1,7 @@
 package com.grain.utils;
 
+import java.text.NumberFormat;
+
 /**
  * @anthor
  * @funcation 安全转换类
@@ -50,4 +52,19 @@ public class Convert {
         }
     }
 
+    /**
+     * 截取小数点后位数
+     * @param value
+     * @param maximumFractionDigits 位数
+     * @param defaultValue 异常返回值
+     * @return
+     */
+    public static double cutOutFractionDigits(Object value, int maximumFractionDigits, double defaultValue) {
+        double num = convertToDouble(value, defaultValue);
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(maximumFractionDigits);
+        String format = nf.format(num);
+        num = Convert.convertToDouble(format, defaultValue);
+        return num;
+    }
 }
