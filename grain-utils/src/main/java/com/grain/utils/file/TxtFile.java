@@ -3,6 +3,7 @@ package com.grain.utils.file;
 import android.util.Log;
 
 import com.grain.utils.InitUtilsModule;
+import com.grain.utils.StringUtils;
 import com.grain.utils.hint.L;
 
 import java.io.BufferedReader;
@@ -26,6 +27,11 @@ import java.io.RandomAccessFile;
 public class TxtFile {
 
     public static void writeTxtToFile(String strcontent, String filePath, String fileName) {
+
+        if (!StringUtils.contains(fileName, ".txt")) {
+            fileName += ".txt";
+        }
+
         //生成文件夹之后，再生成文件，不然会出错
         CraetFile.makeFilePath(filePath, fileName);
 
@@ -50,7 +56,6 @@ public class TxtFile {
 
     /**
      * 使用BufferedWriter进行文本内容的追加
-     *
      * @param file
      * @param content
      */
@@ -77,7 +82,6 @@ public class TxtFile {
 
     /**
      * 使用FileWriter进行文本内容的追加
-     *
      * @param file
      * @param content
      */

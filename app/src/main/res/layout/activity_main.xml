@@ -18,6 +18,7 @@
         android:layout_height="match_parent"/>
 
     <com.grain.utils.view.spinner.GrainSpinner
+        android:visibility="gone"
         android:id="@+id/nice_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

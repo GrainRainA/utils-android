@@ -30,7 +30,7 @@ android {
  */
 uploadArchives {
     repositories.mavenDeployer {
-        repository(url: "file://E:/Project/Android/LocalMaven")
+        repository(url: "file://D:/Project/Android/LocalMaven")
         pom.groupId = "com.local.grain"
         pom.artifactId = "utils-android"
         pom.version = rootProject.ext.versionName + "." + rootProject.ext.versionCode

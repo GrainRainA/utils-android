@@ -1,5 +1,7 @@
 package com.grain.utils.hint;
 
+import static com.grain.utils.StringUtils.objectToString;
+
 import android.app.Activity;
 import android.widget.Toast;
 
@@ -13,21 +15,21 @@ import com.grain.utils.hint.L;
  */
 public class toast {
 
-    public static void show(Object object) {
-        show(object, Toast.LENGTH_SHORT);
+    public static void show(Object... msg) {
+        show(Toast.LENGTH_SHORT, msg);
     }
 
-    public static void show(Object object, int duration) {
-        show(InitUtilsModule.getActivity(), object, duration);
+    public static void show(int duration, Object... msg) {
+        show(InitUtilsModule.getActivity(), duration, msg);
     }
 
-    public static void show(final Activity activity, final Object object, final int duration) {
+    public static void show(final Activity activity, final int duration, final Object... msg) {
 
         if(activity != null) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(activity, object.toString(), duration).show();
+                    Toast.makeText(activity, objectToString(msg), duration).show();
                 }
             });
         }

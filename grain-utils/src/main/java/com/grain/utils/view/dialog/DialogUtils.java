@@ -41,7 +41,6 @@ public class DialogUtils {
 
     /**
      * 单选对话框
-     *
      * @param context         上下文
      * @param title            标题
      * @param data             数据

@@ -1,6 +1,7 @@
 package com.grain.utils;
 
 import com.grain.utils.hint.L;
+import com.grain.utils.utils.ByteUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -17,6 +18,50 @@ public class StringUtils {
 
     private StringUtils() {
         throw new AssertionError();
+    }
+
+    /**
+     * 泛型列表转字符
+     * @param msg
+     * @return
+     */
+    public static String objectToString(Object... msg) {
+        StringBuilder string = new StringBuilder();
+
+        if (msg != null && msg.length != 0) {
+            for (int i = 0; i < msg.length; i++) {
+                if (!StringUtils.isEmpty(objectToString(msg[i]))) {
+                    string.append(objectToString(msg[i])).append(" ");
+                } else {
+                    string.append("null ");
+                }
+            }
+        } else {
+            string = new StringBuilder("null");
+        }
+
+        return string.toString();
+    }
+
+    /**
+     * 泛型转字符
+     * @param msg
+     * @return
+     */
+    public static String objectToString(Object msg) {
+        try {
+            if (msg instanceof int[]) {
+                return (Arrays.toString((int[]) msg));
+            } else if (msg instanceof byte[]) {
+                return (ByteUtils.byteArrayToHexString((byte[]) msg));
+            } else if (msg instanceof Exception) {
+                return "Exception: " + ((Exception) msg).getMessage();
+            } else {
+                return (msg.toString());
+            }
+        } catch (Exception e) {
+            return ("Object cannot be logcat " + e);
+        }
     }
 
     /**
@@ -128,7 +173,6 @@ public class StringUtils {
 
     /**
      * 分割字符串
-     *
      * @param str
      * @param startStr
      * @param endStr
@@ -174,6 +218,7 @@ public class StringUtils {
 
     /**
      * 提取字符串里的数字
+     *
      * @param str
      * @param defaultValue 默认返回值
      * @return
