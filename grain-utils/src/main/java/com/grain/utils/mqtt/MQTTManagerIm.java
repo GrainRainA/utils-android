@@ -1,6 +1,7 @@
 package com.grain.utils.mqtt;
 
 import com.grain.utils.StringUtils;
+import com.grain.utils.utils.json.JSONUtils;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -25,6 +26,13 @@ public class MQTTManagerIm implements MQTTManager {
 
     private Callback callback;
     private Map<String, String> subscribeTopicMap;
+    private String topic;
+    private Map<String,String> map;
+
+    public  MQTTManagerIm(String topic,Map<String,String> map){
+        this.topic=topic;
+        this.map=map;
+    }
 
     @Override
     public void connect(String host, Callback callback) {
@@ -46,9 +54,8 @@ public class MQTTManagerIm implements MQTTManager {
             connectOptions.setAutomaticReconnect(true);     //自动重连
             connectOptions.setUserName(userName);
             connectOptions.setPassword(passWord.toCharArray());
-
+            connectOptions.setWill(topic,  JSONUtils.toJSONString(map).getBytes(),0,false);
             connectOptions.setCleanSession(true);
-
             client.setCallback(mqttCallback);
             client.connect(connectOptions);
         } catch (MqttException e) {
